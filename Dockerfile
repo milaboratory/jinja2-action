@@ -1,12 +1,10 @@
-FROM python:3
+FROM python:3-alpine
 
 WORKDIR /app
 
-RUN pip install poetry
-RUN poetry config virtualenvs.create false
-COPY poetry.lock pyproject.toml ./
-RUN poetry install
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
 
-COPY . ./
+COPY *.py ./
 
 ENTRYPOINT ["./entrypoint.py"]
